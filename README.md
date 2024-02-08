@@ -15,7 +15,7 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
 - Какие карьерные перспективы могут меня ждать в вашей компании?  
 
 ## Ответы на вопросы
-### Контейнеризация
+#### Контейнеризация
 ---
 `Контейнеры` = Linux namespaces + crgoups + chroot + capabilities (Seccomp) 
 > (Seccomp (сокращение от secure computing) — механизм ядра Linuх, позволяющий процессам определять системные вызовы, которые они будут использовать. Если злоумышленник получит возможность выполнить произвольный код, seccomp не даст ему использовать системные вызовы, которые не были заранее объявлены.)
@@ -42,7 +42,7 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
 
 `Chroot` — операция изменения корневого каталога диска для запущенного процесса и его дочерних процессов. Программа, запущенная в таком окружении, не может получить доступ к файлам вне нового корневого каталога. Это измененное окружение называется chroot jail.  
 
-### Dockerd полный путь старта контейнера
+#### Dockerd полный путь старта контейнера
 ---
 [50 вопросов по Docker, которые задают на собеседованиях, и ответы на них](https://habr.com/ru/companies/slurm/articles/528206/)  
 
@@ -51,7 +51,7 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
 3. Docker daemon создает новый контейнер из этого образа в котором запускает исполняемый файл, который производит вывод фразы `"hello-world"` 
 4. Docker daemon передает этот вывод Docker клиенту, который выводит его фразу `"hello-world"` ваш терминал  
 
-### Docker multi-stage builds
+#### Docker multi-stage builds
 ---
 При многоэтапной сборке вы используете несколько операторов `FROM` в вашем `Dockerfile`. Каждая инструкция `FROM` использует произвольный базовый образ и начинает новый этап сборки. Вы можете выборочно копировать артефакты с одного этапа на другой, оставляя только то, что вам необходимо в конечном образе. Чтобы показать, как это работает, давайте адаптируем Dockerfile из предыдущего раздела для этого процесса.  
 
@@ -82,9 +82,9 @@ docker build -t avmaksimov/href-counter:latest .
 
 ### Kubernetes
 ---
-  Kubectl apply manifest (что происходит после этой команды):
-    https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md
-  Kubelet:
+#### Kubectl apply manifest (что происходит после этой команды)  
+  [Источник](https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md)
+  `Kubelet`    
     Validation and generators:
       - kubectl проведет валидацию на стороне клиента, не отправляя никаких запросов
       - kubectl формирует HTTP запрос, который будет отправлен на kube-apiserver
