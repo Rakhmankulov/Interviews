@@ -3,9 +3,9 @@
 ## Полезные сылки 
 https://github.com/Tinkoff/career/blob/main/interview/README.md - IT собеседование в Тинькофф  
 https://learnk8s.io/production-best-practices - Kubernetes best practice  
-https://github.com/Swfuse/devops-interview/blob/main/interview.md - IT вопросы на 
-https://www.opennet.ru/base/net/tcpdump_explore.txt.html  
-https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump  
+https://github.com/Swfuse/devops-interview/blob/main/interview.md - IT вопросы на собесе  
+https://www.opennet.ru/base/net/tcpdump_explore.txt.html - tcpdump  
+https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump  
 
 ## Мои вопросы
 - В какую команду вы меня берете и на какой проект?  
