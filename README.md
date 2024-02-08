@@ -83,21 +83,20 @@ docker build -t avmaksimov/href-counter:latest .
 ### Kubernetes
 ---
 #### Kubectl apply manifest (что происходит после этой команды)  
-  [Источник](https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md)
-  `Kubelet`    
-    Validation and generators:
-      - kubectl проведет валидацию на стороне клиента, не отправляя никаких запросов
-      - kubectl формирует HTTP запрос, который будет отправлен на kube-apiserver
-      - kubectl will also figure out whether other actions need to be triggered, such as recording the command (for rollouts or auditing), 
-        or whether this command is just a "--dry-run"
-    API groups and version negotiation:
-      - k8s использует REST архитектуру и протокол OpenAPI. Другими словами, API у кубера не монолитное и имеет много отдельных ресурсов. 
-        Собственно, выбирается нужный. Все ресурсы можно посмотреть командой kubectl api-resources
-      - у k8s версионированный API, v1 - последняя версия ресурса
-    Аутентификация пользователя/клиента:
-      - Для аутентификации нужен kubeconfig
-      - Аутентифицироваться в k8s можно по сертификату, Bearer токену, имени пользователя/паролю, через OpenID токен 
-    ДАЛЬШЕ НАШ HTTP ЗАПРОС ЛЕТИТ НА KUBE-APISERVER
+  [Источник](https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md)  
+`Дейстия внутри Kubelet`  
+- Валидация и генераторы:
+  - `kubectl` проводит валидацию на стороне клиента, не отправляя никаких запросов  
+  - `kubectl` формирует `HTTP` запрос, который будет отправлен на `kube-apiserver`
+  - `kubectl` также выяснит, нужны ли какие-либо действия, например, запись команды (для роллоута или аудита), или же эта команда просто "--dry-run".  
+- API groups and version negotiation:
+  - k8s использует REST архитектуру и протокол OpenAPI. Другими словами, API у кубера не монолитное и имеет много отдельных ресурсов. Собственно, выбирается нужный. Всt ресурсы можно посмотреть командой `kubectl api-resources`  
+  - у `k8s` версионированный API, v1 - последняя версия ресурса  
+- Аутентификация пользователя/клиента:  
+  - Для аутентификации нужен `kubeconfig`  
+  - Аутентифицироваться в k8s можно по сертификату, Bearer токену, имени пользователя/паролю, через OpenID токен   
+
+ДАЛЬШЕ НАШ HTTP ЗАПРОС ЛЕТИТ НА KUBE-APISERVER
   Kube-apiserver:
     - Это главный интерфейс, через который клиенты и элементы контролплейна рулят нашим кластером. 
     Аутентификация:
