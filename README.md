@@ -1,12 +1,12 @@
 # Вопросы к SRE/DevOps на интервью
 
 ### Полезные сылки
-  https://github.com/Tinkoff/career/blob/main/interview/README.md #Тиньков
-  https://learnk8s.io/production-best-practices #Kubernetes best practice
-  https://github.com/Swfuse/devops-interview/blob/main/interview.md #IT вопросы
-  https://selectel.ru/blog/mexanizmy-kontejnerizacii-namespaces/
-  https://www.opennet.ru/base/net/tcpdump_explore.txt.html
-  https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
+https://github.com/Tinkoff/career/blob/main/interview/README.md #Тиньков
+https://learnk8s.io/production-best-practices #Kubernetes best practice
+https://github.com/Swfuse/devops-interview/blob/main/interview.md #IT вопросы
+https://selectel.ru/blog/mexanizmy-kontejnerizacii-namespaces/
+https://www.opennet.ru/base/net/tcpdump_explore.txt.html
+https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
 
 ### Мои вопросы
   В какую команду вы меня берете и на какой проект? 
