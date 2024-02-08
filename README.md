@@ -1,6 +1,6 @@
 # Вопросы к SRE/DevOps на интервью
 
-## Полезные сылки {#Полезные сылки}
+## Полезные сылки {#1}
 https://github.com/Tinkoff/career/blob/main/interview/README.md #Тиньков
 https://learnk8s.io/production-best-practices #Kubernetes best practice
 https://github.com/Swfuse/devops-interview/blob/main/interview.md #IT вопросы
