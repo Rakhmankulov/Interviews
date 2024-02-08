@@ -50,11 +50,34 @@ https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
 4. Docker daemon передает этот вывод Docker клиенту, который выводит его фразу `"hello-world"` ваш терминал  
 
 ### Docker multi-stage builds
-Каждая инструкция `FROM` может использовать индивидуальный базовый образ и каждая из них начинает новую стадию сборки `Docker` образа.   
-Но основное преимущество, что вы **можете копировать необходимые артефакты из одной стадии в другую**, убирая все, что не нужно из конечного образа. То есть, из стейджинга в прод.  
+При многоэтапной сборке вы используете несколько операторов `FROM` в вашем `Dockerfile`. Каждая инструкция `FROM` использует произвольный базовый образ и начинает новый этап сборки. Вы можете выборочно копировать артефакты с одного этапа на другой, оставляя только то, что вам необходимо в конечном образе. Чтобы показать, как это работает, давайте адаптируем Dockerfile из предыдущего раздела для этого процесса.  
 
+Dockerfile:
+```bash
+FROM golang:1.7.3
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html  
+COPY app.go .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
-### KUBERNETES
+FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=0 /go/src/github.com/alexellis/href-counter/app .
+CMD ["./app"]
+```  
+
+Теперь вам нужен только один `Dockerfile`. Более того, вам больше не нужен и отдельный скрипт сборки. Просто запустите сборку образа привычной командой.
+
+```bash
+docker build -t avmaksimov/href-counter:latest .
+```  
+
+В итоге, вы получаете крошечный образ. Фишка в том, что вам не нужно извлекать промежуточные артефакты на вашу локальную систему.  
+
+Как это работает? Вторая команда `FROM` начинает новый этап сборки с базового образа `alpine:latest`. Инструкция `COPY --from=0` копирует артефакты с предыдущего этапа сборки на текущий этап, благодаря чему необходимые для сборки Go SDK и любые промежуточные артефакты не сохраняются в конечном образе. 
+
+### Kubernetes
   Kubectl apply manifest (что происходит после этой команды):
     https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md
   Kubelet:
