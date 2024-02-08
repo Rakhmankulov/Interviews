@@ -4,8 +4,8 @@
 https://github.com/Tinkoff/career/blob/main/interview/README.md - IT собеседование в Тинькофф  
 https://learnk8s.io/production-best-practices - Kubernetes best practice  
 https://github.com/Swfuse/devops-interview/blob/main/interview.md - IT вопросы на 
-https://www.opennet.ru/base/net/tcpdump_explore.txt.html
-https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
+https://www.opennet.ru/base/net/tcpdump_explore.txt.html  
+https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump  
 
 ## Мои вопросы
 - В какую команду вы меня берете и на какой проект?  
@@ -14,6 +14,7 @@ https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
 -  На какой срок рассчитан этот проект?  
 -  Какие карьерные перспективы могут меня ждать в вашей компании?  
 
+## Ответы на вопросы
 ### Kubernetes
 **Контейнеры = Linux namespaces + crgoups + chroot + capabilities (Seccomp)**  
 > (Seccomp (сокращение от secure computing) — механизм ядра Linuх, позволяющий процессам определять системные вызовы, которые они будут использовать. Если злоумышленник получит возможность выполнить произвольный код, seccomp не даст ему использовать системные вызовы, которые не были заранее объявлены.)
