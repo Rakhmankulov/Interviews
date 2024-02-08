@@ -15,7 +15,7 @@ https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
 - Какие карьерные перспективы могут меня ждать в вашей компании?  
 
 ## Ответы на вопросы
-### Kubernetes
+### Контейнеризация
 `Контейнеры` = Linux namespaces + crgoups + chroot + capabilities (Seccomp) 
 > (Seccomp (сокращение от secure computing) — механизм ядра Linuх, позволяющий процессам определять системные вызовы, которые они будут использовать. Если злоумышленник получит возможность выполнить произвольный код, seccomp не даст ему использовать системные вызовы, которые не были заранее объявлены.)
 
@@ -44,24 +44,18 @@ https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
 ### Dockerd полный путь старта контейнера
 [50 вопросов по Docker, которые задают на собеседованиях, и ответы на них](https://habr.com/ru/companies/slurm/articles/528206/)  
 
-1. Cоздается процесс 
-2. Делается срез файловой системы `chroot` (cgroups - нарезка ресурса, пробрасываются порты)
-3. Создаются правила `iptables`
+1. Docker client связывается с Docker daemon  
+2. Docker daemon скачивает образ "hello-world" с Docker Hub  
+3. Docker daemon создает новый контейнер из этого образа в котором запускает исполняемый файл, который производит вывод фразы "hello-world"  
+4. Docker daemon передает этот вывод Docker клиенту, который выводит его фразу "hello-world" ваш терминал  
 
-  1. Docker client contacted the Docker daemon.
-  2. The Docker daemon pulled the "hello-world" image from the Docker Hub
-  3. The Docker daemon created a new container from that image which runs the executable
-  that produces the output you are currently reading.
-  4. The Docker daemon streamed that output to the Docker client, which sent it to your
-  terminal.
+### Docker multi-stage builds
+Каждая инструкция `FROM` может использовать индивидуальный базовый образ и каждая из них начинает новую стадию сборки `Docker` образа.   
+Но основное преимущество, что вы **можете копировать необходимые артефакты из одной стадии в другую**, убирая все, что не нужно из конечного образа. То есть, из стейджинга в прод.  
+При многоэтапной сборке вы используете несколько операторов `FROM` в своем `Dockerfile`. Каждый оператор `FROM` может использовать разную базу, и каждый из них начинает новый этап сборки. 
+      Вы можете выборочно копировать артефакты с одного этапа на другой, .
 
-  Docker multi-stage builds:
-    - Каждая инструкция FROM может использовать индивидуальный базовый образ и каждая из них начинает новую стадию сборки docker образа. 
-      Но основное преимущество, что вы можете копировать необходимые артефакты из одной стадии в другую. То есть, из стейджинга в прод. 
-      При многоэтапной сборке вы используете несколько операторов FROM в своем Dockerfile. Каждый оператор FROM может использовать разную базу, и каждый из них начинает новый этап сборки. 
-      Вы можете выборочно копировать артефакты с одного этапа на другой, убирая все, что не нужно из конечного образа.
-
-KUBERNETES:
+### KUBERNETES
   Kubectl apply manifest (что происходит после этой команды):
     https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md
   Kubelet:
