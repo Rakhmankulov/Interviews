@@ -1,7 +1,7 @@
 # Вопросы к SRE/DevOps на интервью
 
 ## Полезные сылки 
-https://github.com/Tinkoff/career/blob/main/interview/README.md #Тиньков  
+https://github.com/Tinkoff/career/blob/main/interview/README.md # IT-собеседование в Тинькофф  
 https://learnk8s.io/production-best-practices #Kubernetes best practice
 https://github.com/Swfuse/devops-interview/blob/main/interview.md #IT вопросы
 https://selectel.ru/blog/mexanizmy-kontejnerizacii-namespaces/
