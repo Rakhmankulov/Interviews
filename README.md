@@ -20,7 +20,8 @@ https://habr.com/ru/company/alexhost/blog/531170/ #tcpdump
 > (Seccomp (сокращение от secure computing) — механизм ядра Linuх, позволяющий процессам определять системные вызовы, которые они будут использовать. Если злоумышленник получит возможность выполнить произвольный код, seccomp не даст ему использовать системные вызовы, которые не были заранее объявлены.)
 
 **Namespaces** отвечают за изоляцию процесса от других процессов
-> https://selectel.ru/blog/mexanizmy-kontejnerizacii-namespaces/ - подробно  
+> https://selectel.ru/blog/mexanizmy-kontejnerizacii-namespaces/ - подробно
+
 Пространство имён:
   | Тип      | Что изолирует |
   |-|-|
