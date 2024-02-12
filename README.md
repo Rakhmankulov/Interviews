@@ -83,13 +83,13 @@ docker build -t avmaksimov/href-counter:latest .
 ### Kubernetes
 ---
 #### Kubectl apply manifest - что происходит после этой команды (коротко)?  
-    - валидация манифеста на стороне `kubelet` и аутентификация на воркер-ноде;  
-    - `kubectl` идет в `kube-apiserver` на мастер-ноду, проходя при этом аутентификация и авторизацию;  
-    - каждое событие `kube-apiserver` записывает в `etcd`;  
-    - `controller-manager` видит что надо что-то создать;  
-    - `kube-scheduler` подбирает подходящую ноду и говорит что нужно поднять под с нужным `pod-spec`;   
-    - на воркер-ноде `kubelet` выполняет `docker run` или `crictl run`  
-    - `CRI` поднимает нужный нам `Pod` и следит за тем чтоб он исправно шуршал
+  - валидация манифеста на стороне `kubelet` и аутентификация на воркер-ноде;  
+  - `kubectl` идет в `kube-apiserver` на мастер-ноду, проходя при этом аутентификация и авторизацию;  
+  - каждое событие `kube-apiserver` записывает в `etcd`;  
+  - `controller-manager` видит что надо что-то создать;  
+  - `kube-scheduler` подбирает подходящую ноду и говорит что нужно поднять под с нужным `pod-spec`;   
+  - на воркер-ноде `kubelet` выполняет `docker run` или `crictl run`  
+  - `CRI` поднимает нужный нам `Pod` и следит за тем чтоб он исправно шуршал
     
 #### Kubectl apply manifest - что происходит после этой команды (развернуто)?
 [Источник](https://github.com/jamiehannaford/what-happens-when-k8s/blob/master/README.md)  
@@ -150,7 +150,8 @@ docker build -t avmaksimov/href-counter:latest .
     - `pause` контейнер служит в качестве родительского для всех остальных контейнеров в `Pod`, поскольку в нем размещается множество ресурсов уровня `Pod`, которые в конечном итоге будут использовать контейнеры рабочей нагрузки.  
     Эти `ресурсы` представляют собой пространства имен `Linux` (IPC, сеть, PID).  
   - `CNI`:  
-    > bridge/ipvlan/macvlan/sr-iov  
+    > bridge/ipvlan/macvlan/sr-iov
+    
     тут прокидывается виртуальный линк в `Pod` хоста, `IP` цепляется за `pause` контейнер, чтоб не потеряться при рестартах контейнера из-за ошибок, например.  
   - `Inter-host networking`:  
     - `overlay networking` (Flannel, например)  
@@ -165,57 +166,49 @@ docker build -t avmaksimov/href-counter:latest .
     - Create network via CNI (всякие правила iptables)  
     - post-start lifecycle хуки  
     - Рединес пробы  
-    - Контейнер шуршит   
+    - Контейнер шуршит  
   
-    kube-proxy: через iptables (менеджит services)
+#### Контур управления kubernetes  
+  - `Kube-apiserver`:  
+    - представляет API Kubernetes;  
+    - умеет в горизонтальное масштабирование;  
+    - на OpenAPI (OpenAPI - это cпецификация), на архитектуре REST.  
+  - `etcd`:  
+    - Распределённая и высоконадёжная БД в формате "ключ-значение", основное хранилище всех данных кластера в Kubernetes.  
+  - `kube-scheduler`:  
+    - отслеживает созданные поды без привязанного узла (ноды) и выбирает узел, на котором они должны работать;  
+    - назначает поды согласно требованиям к ресурсам, ограничениям, связанным с аппаратными/программными политиками, принадлежности (affinity) и непринадлежности (anti-affinity) узлов/подов, местонахождению данных, предельным срокам отклика.  
+  - `kube-controller-manager` (куча контроллеров в одном бинаре):  
+    - `Node Controller`: уведомляет и реагирует на сбои узла;
+    - `ReplicationController`: старая, изначальная технология, сейчас этой балалайки в `k8s` нет;
+    - `ReplicaSets Controller`: поддерживает правильное количество подов для каждого объекта `ReplicaSets` в системе. У него нет `rolling-update`, как у предшественника. Вот по этому появился `Deployment`, он абстракция над `ReplicaSets`, добавляет функционал `rolling-update/rollback`. Костыли. Кругом костыли;  
+    - `Endpoints Controller`: заполняет объект узлов (`Endpoints`), то есть связывает сервисы (`Services`) и поды (`Pods`);  
+    - `Account & Token Controllers`: создают стандартные учетные записи и токены доступа API для новых пространств имен.  
+> Контроллер - это асинхронный скрипт, который работает над согласованием текущего состояния системы `Kubernetes` с желаемым состоянием. Полезно думать о кубелете как о контроллере! Он запрашивает `Pods` из `kube-apiserver` каждые 20 секунд (это настраивается), фильтруя те, чье `NodeName` совпадает с именем узла, на котором запущен `kubelet`. Получив этот список, он обнаруживает новые добавления, сравнивая их с собственным внутренним кэшем, и начинает синхронизировать состояние, если имеются какие-либо расхождения.  
+   
+#### Компоненты узла kubernetes  
+  - `kubelet`:  
+    - следит за тем, чтобы контейнеры были запущены в поде;  
+    - принимает набор `PodSpecs`, и гарантирует работоспособность и исправность определённых в них контейнеров;  
+    - если `Pod` создается, он регистрирует некоторые метрики запуска, в `Prometheus` для отслеживания `Pod`;  
+   
+> У пода бывает несколько статусов: `Pending, Running, Succeeded, Failed and Unknown`. Когда `Pod` запускается впервые, `Kubelet` вызывает команду удаленной процедуры `RunPodSandbox (RPC)`. Песочница" - это термин `CRI` для описания набора контейнеров, который в языке `Kubernetes`, как вы догадались, является `Pod`.  
 
-  Контур управления:
-    kube-apiserver:
-    - представляет API Kubernetes
-    - предназначен для горизонтального масштабирования, то есть развёртывание на несколько экземпляров.
-    - На OpenAPI (OpenAPI - это cпецификация), на архитектуре REST
-    etcd:
-    - Распределённая и высоконадёжная БД в формате "ключ-значение", основное хранилище всех данных кластера в Kubernetes.
-    kube-scheduler:
-    - отслеживает созданные поды без привязанного узла и выбирает узел, на котором они должны работать.
-    - согласно требованиям к ресурсам, ограничения, связанные с аппаратными/программными политиками, 
-      принадлежности (affinity) и непринадлежности (anti-affinity) узлов/подов, местонахождения данных, предельных сроков. 
-    kube-controller-manager: (куча контроллеров в одном бинаре)
-    - Контроллер узла (Node Controller): уведомляет и реагирует на сбои узла.
-    - Контроллер репликации (ReplicaSets): поддерживает правильное количество подов для каждого объекта ReplicaSets в системе.
-    - Контроллер конечных точек (Endpoints Controller): заполняет объект конечных точек (Endpoints), то есть связывает сервисы (Services) и поды (Pods).
-    - Контроллеры учетных записей и токенов (Account & Token Controllers): создают стандартные учетные записи и токены доступа API для новых пространств имен.
-      Контроллер - это асинхронный скрипт, который работает над согласованием текущего состояния системы Kubernetes с желаемым состоянием.
-      Полезно думать о кубелете как о контроллере! Он запрашивает Pods из kube-apiserver каждые 20 секунд (это настраивается), фильтруя те, чье NodeName совпадает с именем узла, на котором запущен kubelet. Получив этот список, он обнаруживает новые добавления, сравнивая их с собственным внутренним кэшем, и начинает синхронизировать состояние, если имеются какие-либо расхождения. 
-  
-  Компоненты узла:
-    - kubelet: 
-      следит за тем, чтобы контейнеры были запущены в поде.
-      принимает набор PodSpecs, и гарантирует работоспособность и исправность определённых в них контейнеров. 
-      Если pod создается, он регистрирует некоторые метрики запуска, в Prometheus для отслеживания pod.   
-      У пода бывает несколько статусов: Pending, Running, Succeeded, Failed and Unknown
-      Когда pod запускается впервые, kubelet вызывает команду удаленной процедуры RunPodSandbox (RPC). Песочница" - это термин CRI для описания набора контейнеров, который в языке Kubernetes, как вы догадались, является Pod.
+  - `kube-proxy`:  
+    - конфигурирует правила сети на узлах (iptables). При помощи них разрешаются сетевые подключения к вашим подам изнутри и снаружи кластера;  
+> kube-proxy использует уровень фильтрации пакетов в операционной системы, если он доступен. В противном случае, kube-proxy сам обрабатывает передачу сетевого трафика.  
 
-    - kube-proxy:
-      конфигурирует правила сети на узлах (iptables). При помощи них разрешаются сетевые подключения к вашим подам изнутри и снаружи кластера.
-      kube-proxy использует уровень фильтрации пакетов в операционной системы, если он доступен. 
-      В противном случае, kube-proxy сам обрабатывает передачу сетевого трафика.
-  
-  Как выбирается мастер в k8s: RAFT
-  По какому протоколу API общается: OpenAPI (REST) HTTP/HTTPS
-  Пробы:
-    livenessProbe: Показывает, запущен ли контейнер
-    readinessProbe: Указывает, готов ли контейнер отвечать на запросы
-    startupProbe: Указывает, запущено ли приложение внутри контейнера
-    *Нужно выбирать или livenessProbe + readinessProbe, или startupProbe.
-    Если с пробами что-то не так, kubelet смотрит в restartPolicy, а они бывают трех видов - Always, OnFailure, and Never
+#### Общие вопросы по `Kubernetes`:  
+  - Как выбирается мастер в k8s: RAFT  
+  - По какому протоколу API общается: OpenAPI (REST) HTTP/HTTPS  
+  - Пробы:  
+    - `livenessProbe`: Показывает, запущен ли контейнер;  
+    - `readinessProbe`: Указывает, готов ли контейнер отвечать на запросы;  
+    - `startupProbe`: Указывает, запущено ли приложение внутри контейнера.  
+    > Нужно выбирать или `livenessProbe` + `readinessProbe`, или `startupProbe`. Если с пробами что-то не так, `kubelet` смотрит в `restartPolicy`, а они бывают трех видов - `Always, OnFailure, and Never`  
 
-  Сущности kubernetes:
-    ReplicationController: старая, изначальная технология.
-    ReplicaSets: появился matchLabels, вместо labels. 
-      Но у него нет rolling-update, Вот по этому есть Deployment, он абстракция над ReplicaSets, добавляет rolling-update/rollback
-    Services: связываются с подами по лейблам
-      Kubernetes ServiceTypes allow you to specify what kind of Service you want.
+####  Сущности kubernetes:  
+  Kubernetes ServiceTypes allow you to specify what kind of Service you want.
       Type values and their behaviors are:
       - ClusterIP: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default that is used if you don't explicitly specify a type for a Service. You can expose the service to the public with an Ingress or the Gateway API.
       - NodePort: Exposes the Service on each Node's IP at a static port (the NodePort). To make the node port available, Kubernetes sets up a cluster IP address, the same as if you had requested a Service of type: ClusterIP.
@@ -227,8 +220,8 @@ docker build -t avmaksimov/href-counter:latest .
 
     garbage collector вычищает по полю ownerReferences
 
-  Сеть Kubernetes: 
-    Pause контейнер держит netns
+####  Сеть Kubernetes:  
+  Pause контейнер держит netns
     У каждого пода свой уникальный IP
     На каждой ноде есть root netns. Основной сетевой интерфейс — eth0 — находится в этом root netns
     У каждого пода есть свой netns с виртуальным интерфейсом Ethernet, связывающим их с root netns (ip link). 
@@ -259,7 +252,8 @@ docker build -t avmaksimov/href-counter:latest .
 
 ### Команды дебага
 ---
-  lsof -p # deleted file 
+```bash
+  lsof -p # searching deleted file 
   numactl --hardware, -H # список номеров нод, разделенных запятыми, или диапазонов A-B, или всех.
   perf:
     CPU:
@@ -292,13 +286,12 @@ docker build -t avmaksimov/href-counter:latest .
     tcpdump # можно проверить проходит ли пакет между хостами. Через wireshark можно посмотрреть кто виноват, клиент или сервер. 
 
   sudo ngrep -d any # сканить сетку
+```
 
-reset
-
-Чаще всего, программа работает медленно из-за:
-  CPU time
-  Диска (много записей)
-  Ожидания медленного сервера
+Чаще всего, программа работает медленно из-за:  
+  - CPU time;  
+  - Диска (много I/O оперпаций);
+  - Ожидания медленного сервера.
 
 Mastering the mentioned tools: (strace, tcpdump, netstat, lsof, ngrep, etc)
 
