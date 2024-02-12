@@ -253,22 +253,22 @@ docker build -t avmaksimov/href-counter:latest .
 ### Команды дебага
 ---
 ```bash
-  lsof -p # searching deleted file 
+  lsof -p # поиск удаленных файлов, если процесс их еще держит
   numactl --hardware, -H # список номеров нод, разделенных запятыми, или диапазонов A-B, или всех.
   perf:
     CPU:
       perf top
       perf stat ls -e
       perf 
-  /usr/bin/perf_4.19 top -c 100
+  /usr/bin/perf top -c 100
   strace
     strace -e trace=%network -p <PID> # смотреть сетeвые вызовы
-    strace -f # посмотреть все дочерние процессы
-    strace -e open -p 24106 # посмотреть все файлы, которые открывает процесс
-    # запуск программ в пространстве имен, не разделенном с родительским.
-  ulimit -n # Too many open files
-  opensnoop # Следит за открытыми файлами
-  dstat #сочетает в себе возможности iostat, vmstat, netstat и ifstat.
+    strace -f -p <PID> # посмотреть все дочерние процессы
+    strace -e open -p <PID> # посмотреть все файлы, которые открывает процесс
+  unshare # запуск программ в пространстве имен, не разделенном с родительским.
+  ulimit -n # фиксит Too many open files
+  opensnoop # следит за открытыми файлами
+  dstat # сочетает в себе возможности iostat, vmstat, netstat и ifstat.
 Докер:
   docker ps 
 
@@ -277,14 +277,12 @@ docker build -t avmaksimov/href-counter:latest .
     The system call is the fundamental interface between an application and the Linux kernel.
 Сетевые: 
   nslookup # DNS запросы
-  tcpdump -A # как посмотреть пакеты, если трафик не шифрованный
+  tcpdump # можно проверить проходит ли пакет между хостами. Через wireshark можно посмотреть кто виноват, клиент или сервер. 
+  tcpdump -A # посмотреть пакеты, если трафик не шифрованный
   tcpdump -ni any net 10.232.232.0/31 -AvX 
     -A # Печать каждого пакета (за вычетом заголовка уровня соединения) в формате ASCII. Удобно для захвата веб-страниц.
     -v # verbose
     -X # Печать данных каждого пакета в шестнадцатеричном формате и ASCII. 
-
-    tcpdump # можно проверить проходит ли пакет между хостами. Через wireshark можно посмотрреть кто виноват, клиент или сервер. 
-
   sudo ngrep -d any # сканить сетку
 ```
 
@@ -295,8 +293,16 @@ docker build -t avmaksimov/href-counter:latest .
 
 Mastering the mentioned tools: (strace, tcpdump, netstat, lsof, ngrep, etc)
 
-Методы мониторинга:
-  Requests, Errors, Duration == RED Method
+#### Методы мониторинга  
+  RED Method:  
+    - Requests  
+    - Errors  
+    - Duration  
+  4 golden signals:  
+    - Задержка (Latency)  
+    - Трафик (Traffic)  
+    - Ошибки (Errors)  
+    - Насыщенность (Saturation)  
 
 Ip ip over tcp или нет: Нет. TCP - L4, а IPIP и GRE-туннели — это туннели сетевого уровня (L3) модели OSI.
   IPIP и GRE-туннели — это туннели сетевого уровня (L3) модели OSI, при создании которых доступны IP-адреса обеих сторон. Они представляются в системе в виде интерфейсов GreX и IPIPX, и через них можно настраивать маршрутизацию (в том числе и default route) точно также, как и через любые другие интерфейсы. 
@@ -414,26 +420,26 @@ catacontainer
 
 itil методология
 
-Типы баз данных:
-  Реляционные - SQL (мощная аналитика): 
-    PostgreSQL
-    MySQL
-    MariaDB
-    Oracle
-    SQLite
-  NoSQL - (Документные, похожие на Json)(Быстрый доступ к конкретной информации):
-    MongoDB
-    CouchDB
-  NoSQL - key: value (Ключ: значение) 
-    Redis 
-    Memcached
-  NoSQL - Временные ряды:
-    Prometheus
-    TimescaleDB
-  NewSQL:
-    ...
-  Графовые:
-    Dgraph
+#### Типы баз данных:  
+  - Реляционные - SQL (мощная аналитика):   
+    - PostgreSQL  
+    - MySQL  
+    - MariaDB  
+    - Oracle  
+    - SQLite  
+  - NoSQL - (Документные, похожие на Json)(Быстрый доступ к конкретной информации):  
+    - MongoDB  
+    - CouchDB  
+  - NoSQL - key: value (Ключ: значение)  
+    - Redis  
+    - Memcached  
+  - NoSQL - Временные ряды:  
+    - Prometheus  
+    - TimescaleDB  
+  - NewSQL:  
+    - ...  
+  - Графовые:  
+    -  Dgraph
 
     TRIBE
     Воркер ноды 
@@ -442,12 +448,6 @@ itil методология
 
     Бюрократия
     #MTLS
-    Кто делает SBERoS
-
-    ПСИ - 
 
 
-ISTIO%
-
-У нас NGINX сайта перенаправлял запросы к одной из нескольких ферм энвоя, которая роутила запрос непосредственно в нужный k8s кластер. 
-Я занимался мейнтененсом, расширением и траблшутингом фермы энвоев. 
+ISTIO: На моей практике NGINX сайта перенаправлял запросы к одной из нескольких ферм `envoy`, которая роутила запрос непосредственно в нужный `k8s` кластер. 
