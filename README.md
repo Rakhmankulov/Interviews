@@ -277,7 +277,7 @@ docker build -t avmaksimov/href-counter:latest .
 ```bash
   lsof -p # поиск удаленных файлов, если процесс их еще держит
   numactl --hardware, -H # список номеров нод, разделенных запятыми, или диапазонов A-B, или всех.
-  perf:
+  perf: # узнать сколько CPU использует каждая функция в программе
     CPU:
       perf top
       perf stat ls -e
