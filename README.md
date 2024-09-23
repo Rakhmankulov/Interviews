@@ -100,7 +100,7 @@ docker build -t avmaksimov/href-counter:latest .
 ## Kubernetes
 #### Kubectl apply manifest - что происходит после этой команды (коротко)?  
   - валидация манифеста на стороне `kubelet` и аутентификация на воркер-ноде;  
-  - `kubectl` идет в `kube-apiserver` на мастер-ноду, проходя при этом аутентификация и авторизацию;  
+  - `kubectl` идет в `kube-apiserver` на мастер-ноду, проходя при этом аутентификацию и авторизацию;  
   - каждое событие `kube-apiserver` записывает в `etcd`;  
   - `controller-manager` видит что надо что-то создать;  
   - `kube-scheduler` подбирает подходящую ноду и говорит что нужно поднять под с нужным `pod-spec`;   
