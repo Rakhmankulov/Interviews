@@ -277,16 +277,19 @@ docker build -t avmaksimov/href-counter:latest .
 ```bash
   lsof -p # поиск удаленных файлов, если процесс их еще держит
   numactl --hardware, -H # список номеров нод, разделенных запятыми, или диапазонов A-B, или всех.
+
   perf: # узнать сколько CPU использует каждая функция в программе
     CPU:
       perf top
       perf stat ls -e
       perf 
   /usr/bin/perf top -c 100
-  strace
+
+  strace # отслеживает системные вызовы
     strace -e trace=%network -p <PID> # смотреть сетeвые вызовы
     strace -f -p <PID> # посмотреть все дочерние процессы
     strace -e open -p <PID> # посмотреть все файлы, которые открывает процесс
+
   unshare # запуск программ в пространстве имен, не разделенном с родительским.
   ulimit -n # фиксит Too many open files
   opensnoop # следит за открытыми файлами
