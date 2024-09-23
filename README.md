@@ -234,8 +234,8 @@ docker build -t avmaksimov/href-counter:latest .
   - `garbage collector` вычищает по полю `ownerReferences`  
 
 #### Сущности Kubernetes   
-  `StatefulSets`: Штука, описывающая где будут крутиться `Pods` с данными. [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
-  `Daemonset`: Гарантирует, что все (или некоторые по .spec.template.spec.{nodeSelector или affinity}) узлы запускают копию `Pod`. 
+  `StatefulSets`: Штука, описывающая где будут крутиться `Pods` с данными. [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) 
+  `Daemonset`: Гарантирует, что все (или некоторые по .spec.template.spec.{nodeSelector или affinity}) узлы запускают копию `Pod`  
   `Operator`: (профессия) — группа профессий по управлению работой оборудования (установок) различного вида и назначения. Шутка. `Операторы` - это программные расширения `Kubernetes`, которые используют пользовательские ресурсы для управления приложениями и их компонентами.  
   К числу задач, которые можно автоматизировать с помощью оператора, относятся:
     - развертывание приложения по требованию;  
