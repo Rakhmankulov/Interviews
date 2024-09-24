@@ -397,7 +397,7 @@ Mastering the mentioned tools: (strace, tcpdump, netstat, lsof, ngrep, etc)
   `Istio Service Mesh`:
     - `Istio` идет как `Control Plane`, он состоит из трёх компонентов - `Pilot`, `Mixer` и `Citadel`;  
     - `Envoy` как `sidecar` у подов (Data Plane)  
-    > Istio перехватывает весь сетевой трафик и применяет к нему набор правил, вставляя в каждый pod умный прокси в виде sidecar-контейнера. Прокси, которые активируют все возможности, образуют собой Data Plane, и они могут динамически настраиваться с помощью Control Plane.  
+      > Istio перехватывает весь сетевой трафик и применяет к нему набор правил, вставляя в каждый pod умный прокси в виде sidecar-контейнера. Прокси, которые активируют все возможности, образуют собой Data Plane, и они могут динамически настраиваться с помощью Control Plane.  
     > На моей практике `Nginx` сайта перенаправлял запросы к одной из нескольких ферм `Envoy`, которая роутила запрос непосредственно в нужный `kubernetes` кластер. 
     
   `ELK: (Elasticsearch, Logstash и Kibana)`: у нас ClickHouse, c kittenhouse - своей проксей + statsd  
