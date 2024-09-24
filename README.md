@@ -221,6 +221,7 @@ docker build -t avmaksimov/href-counter:latest .
     - `readinessProbe`: Указывает, готов ли контейнер отвечать на запросы;  
     - `startupProbe`: Указывает, запущено ли приложение внутри контейнера.  
     > Нужно выбирать или `livenessProbe` + `readinessProbe`, или `startupProbe`. Если с пробами что-то не так, `kubelet` смотрит в `restartPolicy`, а они бывают трех видов - `Always, OnFailure, and Never`
+  - Как прокидывается файл из инит контейнера: согласно описаным в `volumeMounts` правилам
 
   - Восстановление etcd (disaster recovery):
     - нужно выключить 2 из трех инстансов, на оставшемся можно подложить последний хороший бэкап (забэкапив текущие данные, если они покрашились) и запуститься с ключем `--force-new-cluster`
@@ -421,9 +422,8 @@ Mastering the mentioned tools: (strace, tcpdump, netstat, lsof, ngrep, etc)
   Понимание BGP: это протокол динамической маршрутизации  
 
   Ansible: range или to yaml (второе не мержит)  
-  Dependencies 
-  lvm 
-  Как прокидывается файл из инит контейнера
+  Dependencies  
+  lvm  
   jagger
   openapi 
   gravitee  
