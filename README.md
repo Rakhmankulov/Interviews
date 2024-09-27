@@ -2,22 +2,23 @@
 1. [Полезные сылки](#Полезные-сылки)
 2. [Мои вопросы](#Мои-вопросы-к-интервьюеру)
 3. [Контейнеризация](#Контейнеризация)
-4. [Dockerd полный путь старта контейнера](#Dockerd-полный-путь-старта-контейнера)
-5. [Docker multi-stage builds](#Docker-multi-stage-builds)
-6. [Kubectl apply manifest - что происходит после этой команды (коротко)?](https://github.com/Rakhmankulov/Interviews/blob/main/README.md#kubectl-apply-manifest---%D1%87%D1%82%D0%BE-%D0%BF%D1%80%D0%BE%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82-%D0%BF%D0%BE%D1%81%D0%BB%D0%B5-%D1%8D%D1%82%D0%BE%D0%B9-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B-%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%BE)
-7. [Kubectl apply manifest - что происходит после этой команды (развернуто)?](https://github.com/Rakhmankulov/Interviews/blob/main/README.md#kubectl-apply-manifest---%D1%87%D1%82%D0%BE-%D0%BF%D1%80%D0%BE%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82-%D0%BF%D0%BE%D1%81%D0%BB%D0%B5-%D1%8D%D1%82%D0%BE%D0%B9-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B-%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D1%82%D0%BE)
-8. [Компоненты контура управления Kubernetes](#Компоненты-контура-управления-Kubernetes)
-9. [Компоненты worker-ноды Kubernetes](#Компоненты-worker-ноды-Kubernetes)
-10. [Общие вопросы по Kubernetes](#Общие-вопросы-по-Kubernetes)
-11. [Сущности Kubernetes](#Сущности-Kubernetes)
-12. [Сеть в Kubernetes](#Сеть-в-Kubernetes)
-13. [Команды дебага Linux](#Команды-дебага-Linux)
-14. [Общие вопросы с собесов](#Общие-вопросы-с-собесов)
-15. [Шифрование](#Шифрование)
-16. [Типы баз данных](#Типы-баз-данных)
-17. [Свистелки (Удобные инструменты DevOps)](#Свистелки)
-18. [Менеджерские свистелки (Снова удобные инструменты)](#Менеджерские-свистелки)
-19. [Вопросы без ответа](#Вопросы-без-ответа)
+4. [DevOps практики](#DevOps-практики)
+5. [Dockerd полный путь старта контейнера](#Dockerd-полный-путь-старта-контейнера)
+6. [Docker multi-stage builds](#Docker-multi-stage-builds)
+7. [Kubectl apply manifest - что происходит после этой команды (коротко)?](https://github.com/Rakhmankulov/Interviews/blob/main/README.md#kubectl-apply-manifest---%D1%87%D1%82%D0%BE-%D0%BF%D1%80%D0%BE%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82-%D0%BF%D0%BE%D1%81%D0%BB%D0%B5-%D1%8D%D1%82%D0%BE%D0%B9-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B-%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%BE)
+8. [Kubectl apply manifest - что происходит после этой команды (развернуто)?](https://github.com/Rakhmankulov/Interviews/blob/main/README.md#kubectl-apply-manifest---%D1%87%D1%82%D0%BE-%D0%BF%D1%80%D0%BE%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82-%D0%BF%D0%BE%D1%81%D0%BB%D0%B5-%D1%8D%D1%82%D0%BE%D0%B9-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B-%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D1%82%D0%BE)
+9. [Компоненты контура управления Kubernetes](#Компоненты-контура-управления-Kubernetes)
+10. [Компоненты worker-ноды Kubernetes](#Компоненты-worker-ноды-Kubernetes)
+11. [Общие вопросы по Kubernetes](#Общие-вопросы-по-Kubernetes)
+12. [Сущности Kubernetes](#Сущности-Kubernetes)
+13. [Сеть в Kubernetes](#Сеть-в-Kubernetes)
+14. [Команды дебага Linux](#Команды-дебага-Linux)
+15. [Общие вопросы с собесов](#Общие-вопросы-с-собесов)
+16. [Шифрование](#Шифрование)
+17. [Типы баз данных](#Типы-баз-данных)
+18. [Свистелки (Удобные инструменты DevOps)](#Свистелки)
+19. [Менеджерские свистелки (Снова удобные инструменты)](#Менеджерские-свистелки)
+20. [Вопросы без ответа](#Вопросы-без-ответа)
 
 ## Полезные сылки 
 https://github.com/Tinkoff/career/blob/main/interview/README.md - IT собеседование в Тинькофф  
@@ -60,6 +61,19 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
 - Управление - можно изменить статус (frozen, stopped, restarted) всех процессов `cgroup` одной командой  
 
 `Chroot` — операция изменения корневого каталога диска для запущенного процесса и его дочерних процессов. Программа, запущенная в таком окружении, не может получить доступ к файлам вне нового корневого каталога. Это измененное окружение называется chroot jail.  
+
+## DevOps практики
+#### Этапы CI/CD 
+  `CI` - Непрерывная интеграция:
+    1. План
+    2. Код
+    3. Сборка
+    4. Тест
+  `CD` - Непрерывная доставка:
+    1. Тест
+    2. Релиз
+    3. Развертывание
+    4. Поддержка и мониторинг
 
 ## Dockerd полный путь старта контейнера
 [50 вопросов по Docker, которые задают на собеседованиях, и ответы на них](https://habr.com/ru/companies/slurm/articles/528206/)  
