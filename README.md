@@ -74,6 +74,7 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
     2. Релиз  
     3. Развертывание  
     4. Поддержка и мониторинг  
+    Картинка:  
     ![DevOps Practics](https://github.com/Rakhmankulov/Interviews/blob/main/images/DevOpsPractics.png)
 
 ## Dockerd полный путь старта контейнера
