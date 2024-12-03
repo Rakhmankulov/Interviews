@@ -452,34 +452,34 @@ Mastering the mentioned tools: (strace, tcpdump, netstat, lsof, ngrep, etc)
   Ansible: range или to yaml (второе не мержит)  
   Dependencies  
   lvm  
-  jagger
-  openapi 
+  jagger  
+  openapi  
   gravitee  
   vm ware - виртуализация, не интересно в эпоху контейнеров. Хотя... Есть люди, которые поднимают `Kubernetes` в виртуалках, наверно, надо изучить эти кейсы. Здесь может быть ваш MR :)  
   LeetCode - уровень easy https://leetcode.com/ - это для SRE в Rндекс и ТинькоFF. Кстати, они гоняют тупо по академическим знаниям, не спрашивая у любителей куберетиса ничего про кубернетис, отнимая тонны вашего времени на 4 этапа. Что сказать, Google Way...  
 
-dochouse
-штурвал 
-haiva
-ipv6
+dochouse  
+штурвал  
+haiva  
+ipv6  
 
-git джит-компилятор
+git джит-компилятор  
 
-Terraform + Yandex Cloud
-Пишут модули
-Terragrand 
+Terraform + Yandex Cloud  
+Пишут модули  
+Terragrand  
 
-copy on write 
+copy on write  
 
-steal
-dora 
-dhcp 
-acid 
+steal  
+dora  
+dhcp  
+acid  
 
-catacontainer
-Безопасность:
-  dlp системы
+catacontainer  
+Безопасность:  
+  dlp системы  
 
-  TRIBE
-  RHEL
-  Пайпы
+  TRIBE  
+  RHEL  
+  Пайпы  
