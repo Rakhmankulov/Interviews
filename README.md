@@ -447,7 +447,7 @@ Mastering the mentioned tools: (strace, tcpdump, netstat, lsof, ngrep, etc)
   * PostgreSQL
   * Oracle Database
   * Microsoft SQL Server
-1. NoSQL базы данных (для специфичных сценариев):  
+2. NoSQL базы данных (для специфичных сценариев):  
   * MongoDB
   * Cassandra
   * Redis (в качестве высокопроизводительного кэша)
