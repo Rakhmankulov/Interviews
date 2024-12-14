@@ -441,6 +441,16 @@ Mastering the mentioned tools: (strace, tcpdump, netstat, lsof, ngrep, etc)
 1. **Поддержка большого числа пользователей**:  
   * OLTP-системы часто рассчитаны на поддержку тысяч или миллионов пользователей, которые выполняют транзакции одновременно.  
 
+#### Примеры баз данных, используемых для OLTP:  
+1. Реляционные базы данных:  
+  * MySQL
+  * PostgreSQL
+  * Oracle Database
+  * Microsoft SQL Server
+1. NoSQL базы данных (для специфичных сценариев):  
+  * MongoDB
+  * Cassandra
+  * Redis (в качестве высокопроизводительного кэша)
   
 #### Свистелки  
   `Argo cd` (continuous delivery): декларативный инструмент для непрерывной доставки в Kubernetes по модели `GitOps`  
