@@ -127,9 +127,9 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
 
 ---
 ## Docker
+[50 вопросов по Docker, которые задают на собеседованиях, и ответы на них](https://habr.com/ru/companies/slurm/articles/528206/)  
 
 ### Dockerd полный путь старта контейнера
-[50 вопросов по Docker, которые задают на собеседованиях, и ответы на них](https://habr.com/ru/companies/slurm/articles/528206/)  
 
 1. Docker client связывается с Docker daemon  
 2. Docker daemon скачивает образ `"hello-world"` с Docker Hub  
