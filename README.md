@@ -128,14 +128,32 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
 ---
 ## Docker
 [50 вопросов по Docker, которые задают на собеседованиях, и ответы на них](https://habr.com/ru/companies/slurm/articles/528206/)  
+---
+### Docker Building best practises
+> [Официалная документация](https://docs.docker.com/build/building/best-practices/)
+1. Использовать multi-stage билды
+1. Создавать переиспользуемые стейджи
+1. Выбор оптимальных базовых образов
+1. Регулярная пересборка образов с обновленными зависимостями
+1. Использовать --pull в команде `docker build` для загрузки более новой базовой версии:
+    ```bash
+    docker build --pull -t my-image:my-tag .
+    ```
+1. Использовать параметр --no-cache для чистой сборки:
+    ```bash
+     docker build --pull --no-cache -t my-image:my-tag .
+    ```
+1. Настроить исключения файлов с помощью `.dockerignore`
+1. 
 
-### Dockerd полный путь старта контейнера
 
-1. Docker client связывается с Docker daemon  
-2. Docker daemon скачивает образ `"hello-world"` с Docker Hub  
-3. Docker daemon создает новый контейнер из этого образа в котором запускает исполняемый файл, который производит вывод фразы `"hello-world"` 
-4. Docker daemon передает этот вывод Docker клиенту, который выводит его фразу `"hello-world"` ваш терминал  
-
+---
+### Docker полный путь старта контейнера
+1. Когда я выполняю `docker run hello-world`, Docker client отправляет запрос в Docker daemon по API.  
+1. Daemon проверяет, есть ли образ локально, и если нет — скачивает его из registry.
+1. Далее Docker daemon через containerd создаёт контейнер: настраивает namespaces, cgroups, файловую систему и через OCI runtime (runc) запускает процесс контейнера.
+1. Stdout/stderr процесса передаются обратно через daemon в Docker client, который выводит результат в терминал.
+---
 ### Docker multi-stage builds
 При многоэтапной сборке вы используете **несколько операторов `FROM`** в вашем `Dockerfile`. Каждая инструкция `FROM` использует произвольный базовый образ и начинает новый этап сборки. Вы можете выборочно копировать артефакты с одного этапа на другой, оставляя только то, что вам необходимо в конечном образе. Пример как это работает:
 
