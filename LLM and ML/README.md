@@ -3,12 +3,14 @@
 ## Разобрать следующие вопросы:
 1. Базовые знания MLOps (модели, fine-tuning, quantization, caching).
 1. Инструменты инфтраструктуры LLM
-1. Что такое inference
+1. LiteLLM, Open WebUI и Langfuse
 1. Что такое Tensor Processing Unit (TPU)?
+
+
 ---
 ## База
 
-# Инструменты инфтраструктуры LLM
+# Инструменты инфраструктуры LLM
 
 **NVIDIA**  
 ---
