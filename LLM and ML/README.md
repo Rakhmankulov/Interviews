@@ -193,7 +193,7 @@
 
 ### LiteLLM
 
-  ![LLM-schema](https://github.com/Rakhmankulov/Interviews/blob/main/images/LLM.drawio.png)
+  ![LLM-schema](https://github.com/Rakhmankulov/Interviews/blob/main/images/LLM-schema.png)
 
 **LiteLLM** — это **прокси-сервер** с OpenAI-совместимым API, который:
 
