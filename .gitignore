@@ -1,3 +1,4 @@
 .DS*
+*.psd
 webapp/
 copilot-instructions.md
