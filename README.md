@@ -84,7 +84,7 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
     3. Развертывание  
     4. Поддержка и мониторинг  
 
-    ![DevOps Practics](https://github.com/Rakhmankulov/Interviews/blob/main/images/DevOpsPractics.jpeg)
+![DevOps Practics](https://github.com/Rakhmankulov/Interviews/blob/main/images/DevOpsPractics.jpeg)
 
 ---
 
