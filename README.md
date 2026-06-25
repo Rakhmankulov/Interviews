@@ -204,8 +204,8 @@ https://habr.com/ru/company/alexhost/blog/531170/ - tcpdump
     4. **Image** — образ, из которого раскатывается контейнер.
     5. **Container** - запущенный экземпляр образа — изолированная среда выполнения.
     6. **Docker registry** — хранилище образов.
-    
-    ![docker-basic-img](https://github.com/Rakhmankulov/Interviews/blob/main/images/Docker.png)
+
+![docker-basic-img](https://github.com/Rakhmankulov/Interviews/blob/main/images/Docker.png)
     
     На **DOCKER_HOST** работает **Docker daemon**, запускает контейнеры. Есть **Client** (Docker CLI), который передаёт команды: *собери образ*, *скачай образ*, *запусти контейнер*. **Docker daemon** ходит в **Registry** и выполняет их. **Docker CLI** может обращаться и локально (к unix-сокету), и по TCP с удалённого хоста.
     
